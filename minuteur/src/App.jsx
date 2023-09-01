@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
+import pomodoro from "./assets/pomodoro.png";
+import Work from "./components/Work";
+import BreakTimer from "./components/BreakTimer";
+import StartButton from "./components/Start";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isActive, setIsActive] = useState(false);
+  const [currentTime, setCurrentTime] = useState(25 * 60);
+  const [breakTime, setBreakTime] = useState(5 * 60); // Temps de pause en secondes
+
+  const resetTime = (time) => {
+    setCurrentTime(time);
+  };
+
+  useEffect(() => {
+    let interval;
+
+    if (isActive && currentTime > 0) {
+      interval = setInterval(() => {
+        setCurrentTime((prevTime) => prevTime - 1);
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [isActive, currentTime]);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <h1>Compte à rebours pomodoro</h1>
+      <img className="pomodoro" src={pomodoro} alt="Pomodoro" />
+
+      <div className="buttons">
+        <Work currentTime={currentTime} resetTime={resetTime} />
+        <BreakTimer breakTime={breakTime} resetTime={setBreakTime} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <StartButton setIsActive={setIsActive} isActive={isActive} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
