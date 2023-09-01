@@ -11,7 +11,7 @@ function BreakTimer() {
       .padStart(2, "0")}`;
   };
   return (
-    <button type="button" className="timerBreak" disabled>
+    <button type="button" className="timerBreak">
       {formatBreakTime(breakTime)}
     </button>
   );

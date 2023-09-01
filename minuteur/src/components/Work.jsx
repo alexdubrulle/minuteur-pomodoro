@@ -17,7 +17,7 @@ function Work({ currentTime, resetTime }) {
   };
 
   return (
-    <button type="button" className="timer" disabled>
+    <button type="button" className="timer">
       {formatTime(currentTime)}
     </button>
   );

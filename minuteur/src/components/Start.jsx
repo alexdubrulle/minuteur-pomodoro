@@ -10,9 +10,7 @@ const StartButton = ({ setIsActive, isActive }) => {
     let interval;
 
     if (isActive) {
-      interval = setInterval(() => {
-        // Votre code pour mettre à jour le temps ici si nécessaire
-      }, 1000);
+      interval = setInterval(() => {}, 1000);
     }
 
     return () => clearInterval(interval);

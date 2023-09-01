@@ -41,7 +41,9 @@ function App() {
         {shortTimerActive ? (
           <p>C'est l'heure du café</p>
         ) : (
-          <button onClick={startShortTimer}>5 min</button>
+          <button className="shortTimer" onClick={startShortTimer}>
+            05:00
+          </button>
         )}
         <StartButton setIsActive={setIsActive} isActive={isActive} />
       </div>
