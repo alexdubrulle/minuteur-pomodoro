@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 function Work({ currentTime, resetTime }) {
   useEffect(() => {
     if (currentTime === 0) {
-      resetTime(25 * 60); // Réinitialisez le temps à 25 minutes en secondes
+      resetTime(25 * 60);
     }
   }, [currentTime, resetTime]);
 

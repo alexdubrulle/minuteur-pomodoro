@@ -2,16 +2,21 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import pomodoro from "./assets/pomodoro.png";
 import Work from "./components/Work";
-import BreakTimer from "./components/BreakTimer";
 import StartButton from "./components/Start";
 
 function App() {
   const [isActive, setIsActive] = useState(false);
   const [currentTime, setCurrentTime] = useState(25 * 60);
-  const [breakTime, setBreakTime] = useState(5 * 60); // Temps de pause en secondes
+  const [shortTimerActive, setShortTimerActive] = useState(false);
 
   const resetTime = (time) => {
     setCurrentTime(time);
+  };
+
+  const startShortTimer = () => {
+    setIsActive(true);
+    setCurrentTime(5 * 60); // Réglez le temps à 5 minutes en secondes
+    setShortTimerActive(true);
   };
 
   useEffect(() => {
@@ -33,9 +38,13 @@ function App() {
 
       <div className="buttons">
         <Work currentTime={currentTime} resetTime={resetTime} />
-        <BreakTimer breakTime={breakTime} resetTime={setBreakTime} />
+        {shortTimerActive ? (
+          <p>C'est l'heure du café</p>
+        ) : (
+          <button onClick={startShortTimer}>5 min</button>
+        )}
+        <StartButton setIsActive={setIsActive} isActive={isActive} />
       </div>
-      <StartButton setIsActive={setIsActive} isActive={isActive} />
     </>
   );
 }

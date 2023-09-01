@@ -4,5 +4,6 @@ import Work from "./Work";
 describe("<Work />", () => {
   it("renders", () => {
     cy.mount(<Work />);
+    cy.get(".timer").should("be.visible");
   });
 });
