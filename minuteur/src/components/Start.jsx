@@ -18,7 +18,7 @@ const StartButton = ({ setIsActive, isActive }) => {
 
   return (
     <div>
-      <button type="button" onClick={handleStartClick}>
+      <button type="button" className="lancement" onClick={handleStartClick}>
         {isActive ? "Pause" : "Start"}
       </button>
     </div>

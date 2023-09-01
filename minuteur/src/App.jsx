@@ -3,6 +3,7 @@ import "./App.css";
 import pomodoro from "./assets/pomodoro.png";
 import Work from "./components/Work";
 import StartButton from "./components/Start";
+import ResetButton from "./components/ResetButon"; // Importez le composant ResetButton
 
 function App() {
   const [isActive, setIsActive] = useState(false);
@@ -14,9 +15,17 @@ function App() {
   };
 
   const startShortTimer = () => {
-    setIsActive(true);
-    setCurrentTime(5 * 60); // Réglez le temps à 5 minutes en secondes
-    setShortTimerActive(true);
+    if (!isActive) {
+      setIsActive(true);
+      setCurrentTime(5 * 60); // Réglez le temps à 5 minutes en secondes
+      setShortTimerActive(true);
+    }
+  };
+
+  const resetTimers = () => {
+    setIsActive(false);
+    setCurrentTime(25 * 60);
+    setShortTimerActive(false);
   };
 
   useEffect(() => {
@@ -39,14 +48,16 @@ function App() {
       <div className="buttons">
         <Work currentTime={currentTime} resetTime={resetTime} />
         {shortTimerActive ? (
-          <p>C'est l'heure du café</p>
+          <p className="socialPause">C'est l'heure du café</p>
         ) : (
           <button className="shortTimer" onClick={startShortTimer}>
             05:00
           </button>
         )}
-        <StartButton setIsActive={setIsActive} isActive={isActive} />
+        <ResetButton resetTimers={resetTimers} />{" "}
+        {/* Utilisez le composant ResetButton */}
       </div>
+      <StartButton setIsActive={setIsActive} isActive={isActive} />
     </>
   );
 }
